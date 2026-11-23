@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="pos_vietqr_request_view_tree" model="ir.ui.view">
+        <field name="name">pos.vietqr.request.tree</field>
+        <field name="model">pos.vietqr.request</field>
+        <field name="arch" type="xml">
+            <tree create="0" edit="0" decoration-success="state == 'paid'" decoration-muted="state == 'cancelled'">
+                <field name="create_date" string="Created"/>
+                <field name="code"/>
+                <field name="order_ref"/>
+                <field name="session_id"/>
+                <field name="payment_method_id"/>
+                <field name="amount" sum="Total"/>
+                <field name="confirmed_manually" optional="show"/>
+                <field name="state" widget="badge" decoration-success="state == 'paid'" decoration-warning="state == 'pending'"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="pos_vietqr_request_view_form" model="ir.ui.view">
+        <field name="name">pos.vietqr.request.form</field>
+        <field name="model">pos.vietqr.request</field>
+        <field name="arch" type="xml">
+            <form create="0" edit="0">
+                <header>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="amount"/>
+                            <field name="order_ref"/>
+                        </group>
+                        <group>
+                            <field name="payment_method_id"/>
+                            <field name="session_id"/>
+                            <field name="confirmed_manually"/>
+                            <field name="confirmed_by_id" attrs="{'invisible': [('confirmed_manually', '=', False)]}"/>
+                        </group>
+                    </group>
+                    <field name="transaction_ids">
+                        <tree>
+                            <field name="transaction_date"/>
+                            <field name="provider_ref"/>
+                            <field name="amount"/>
+                            <field name="content"/>
+                            <field name="state"/>
+                        </tree>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="pos_vietqr_transaction_view_tree" model="ir.ui.view">
+        <field name="name">pos.vietqr.transaction.tree</field>
+        <field name="model">pos.vietqr.transaction</field>
+        <field name="arch" type="xml">
+            <tree create="0" edit="0" decoration-danger="state != 'matched'">
+                <field name="create_date" string="Received"/>
+                <field name="transaction_date"/>
+                <field name="provider"/>
+                <field name="provider_ref"/>
+                <field name="account_number"/>
+                <field name="amount" sum="Total"/>
+                <field name="content"/>
+                <field name="request_id"/>
+                <field name="state" widget="badge" decoration-success="state == 'matched'" decoration-danger="state != 'matched'"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="pos_vietqr_transaction_view_search" model="ir.ui.view">
+        <field name="name">pos.vietqr.transaction.search</field>
+        <field name="model">pos.vietqr.transaction</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="content"/>
+                <field name="provider_ref"/>
+                <filter name="to_review" string="To review" domain="[('state', '!=', 'matched')]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_pos_vietqr_request" model="ir.actions.act_window">
+        <field name="name">VietQR payments</field>
+        <field name="res_model">pos.vietqr.request</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_pos_vietqr_transaction" model="ir.actions.act_window">
+        <field name="name">VietQR bank transactions</field>
+        <field name="res_model">pos.vietqr.transaction</field>
+        <field name="view_mode">tree</field>
+        <field name="context">{'search_default_to_review': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No bank transaction to review</p>
+            <p>Transfers that SePay reports but that match no waiting VietQR payment, or match one with a different amount, show up here.</p>
+        </field>
+    </record>
+
+    <menuitem id="menu_pos_vietqr_request" name="VietQR payments" parent="point_of_sale.menu_point_of_sale" action="action_pos_vietqr_request" sequence="50"/>
+    <menuitem id="menu_pos_vietqr_transaction" name="VietQR bank transactions" parent="point_of_sale.menu_point_of_sale" action="action_pos_vietqr_transaction" sequence="51" groups="point_of_sale.group_pos_manager"/>
+</odoo>

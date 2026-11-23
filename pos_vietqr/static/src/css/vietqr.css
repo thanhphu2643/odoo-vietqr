@@ -1,0 +1,13 @@
+.pos .popup.popup-vietqr { width: 420px; max-width: 95vw; height: auto; }
+.pos .popup-vietqr .body { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.pos .popup-vietqr .vietqr-amount { font-size: 28px; font-weight: bold; }
+.pos .popup-vietqr .vietqr-code-wrap { position: relative; }
+.pos .popup-vietqr .vietqr-code { width: 260px; height: 260px; display: block; transition: opacity .3s; }
+.pos .popup-vietqr .vietqr-code.is-paid { opacity: .15; }
+.pos .popup-vietqr .vietqr-paid { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 26px; font-weight: bold; color: #28a745; background: rgba(255, 255, 255, .85); }
+.pos .popup-vietqr .vietqr-account { text-align: center; line-height: 1.5; }
+.pos .popup-vietqr .vietqr-ref strong { font-family: monospace; font-size: 18px; letter-spacing: 1px; }
+.pos .popup-vietqr .vietqr-waiting { color: #6c757d; }
+.pos .popup-vietqr .footer { display: flex; justify-content: flex-end; gap: 8px; }
+.pos .popup-vietqr .footer .button { width: auto; padding: 0 16px; }
+.pos .popup-vietqr .footer .button.disabled { pointer-events: none; opacity: .4; }
