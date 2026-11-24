@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="pos_vietqr.VietQRDialog">
+        <Dialog title="'VietQR'" size="'md'" contentClass="'vietqr-dialog'">
+            <div class="d-flex flex-column align-items-center gap-2">
+                <div class="vietqr-amount" t-esc="amount"/>
+                <div class="vietqr-code-wrap">
+                    <img class="vietqr-code" t-att-src="qrUrl" alt="VietQR" t-att-class="{ 'is-paid': state.paid }"/>
+                    <div t-if="state.paid" class="vietqr-paid"><i class="fa fa-check-circle"/> Paid</div>
+                </div>
+                <div class="text-center">
+                    <div><strong t-esc="props.request.bank_name"/> · <t t-esc="props.request.account_number"/></div>
+                    <div t-if="props.request.account_name" t-esc="props.request.account_name"/>
+                    <div class="vietqr-ref">Content: <strong t-esc="props.request.code"/></div>
+                </div>
+                <div t-if="!state.paid" class="text-muted"><i class="fa fa-circle-o-notch fa-spin"/> Waiting for the transfer…</div>
+            </div>
+            <t t-set-slot="footer">
+                <button class="btn btn-primary btn-lg" t-att-disabled="state.paid or state.confirming" t-on-click="confirmManually">Received (confirm manually)</button>
+                <button class="btn btn-secondary btn-lg" t-att-disabled="state.paid" t-on-click="cancel">Cancel</button>
+            </t>
+        </Dialog>
+    </t>
+</templates>

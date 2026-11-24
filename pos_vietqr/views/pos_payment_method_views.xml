@@ -6,11 +6,11 @@
         <field name="inherit_id" ref="point_of_sale.pos_payment_method_view_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='use_payment_terminal']" position="after">
-                <field name="vietqr_bank_bin" attrs="{'invisible': [('use_payment_terminal', '!=', 'vietqr')], 'required': [('use_payment_terminal', '=', 'vietqr')]}"/>
-                <field name="vietqr_account_number" attrs="{'invisible': [('use_payment_terminal', '!=', 'vietqr')], 'required': [('use_payment_terminal', '=', 'vietqr')]}"/>
-                <field name="vietqr_account_name" attrs="{'invisible': [('use_payment_terminal', '!=', 'vietqr')]}"/>
-                <field name="vietqr_webhook_url" widget="CopyClipboardChar" attrs="{'invisible': [('use_payment_terminal', '!=', 'vietqr')]}"/>
-                <field name="vietqr_webhook_key" widget="CopyClipboardChar" attrs="{'invisible': [('use_payment_terminal', '!=', 'vietqr')]}"/>
+                <field name="vietqr_bank_bin" invisible="use_payment_terminal != 'vietqr'" required="use_payment_terminal == 'vietqr'"/>
+                <field name="vietqr_account_number" invisible="use_payment_terminal != 'vietqr'" required="use_payment_terminal == 'vietqr'"/>
+                <field name="vietqr_account_name" invisible="use_payment_terminal != 'vietqr'"/>
+                <field name="vietqr_webhook_url" widget="CopyClipboardChar" invisible="use_payment_terminal != 'vietqr'"/>
+                <field name="vietqr_webhook_key" widget="CopyClipboardChar" invisible="use_payment_terminal != 'vietqr'"/>
             </xpath>
         </field>
     </record>

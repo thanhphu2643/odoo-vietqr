@@ -1,0 +1,11 @@
+.vietqr-dialog {
+    .vietqr-amount { font-size: 28px; font-weight: bold; }
+    .vietqr-code-wrap { position: relative; }
+    .vietqr-code { width: 260px; height: 260px; display: block; transition: opacity .3s; }
+    .vietqr-code.is-paid { opacity: .15; }
+    .vietqr-paid {
+        position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 8px;
+        font-size: 26px; font-weight: bold; color: #28a745; background: rgba(255, 255, 255, .85);
+    }
+    .vietqr-ref strong { font-family: monospace; font-size: 18px; letter-spacing: 1px; }
+}

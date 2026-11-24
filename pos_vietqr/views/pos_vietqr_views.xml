@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="pos_vietqr_request_view_tree" model="ir.ui.view">
-        <field name="name">pos.vietqr.request.tree</field>
+    <record id="pos_vietqr_request_view_list" model="ir.ui.view">
+        <field name="name">pos.vietqr.request.list</field>
         <field name="model">pos.vietqr.request</field>
         <field name="arch" type="xml">
-            <tree create="0" edit="0" decoration-success="state == 'paid'" decoration-muted="state == 'cancelled'">
+            <list create="0" edit="0" decoration-success="state == 'paid'" decoration-muted="state == 'cancelled'">
                 <field name="create_date" string="Created"/>
                 <field name="code"/>
                 <field name="order_ref"/>
@@ -13,7 +13,7 @@
                 <field name="amount" sum="Total"/>
                 <field name="confirmed_manually" optional="show"/>
                 <field name="state" widget="badge" decoration-success="state == 'paid'" decoration-warning="state == 'pending'"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -36,28 +36,28 @@
                             <field name="payment_method_id"/>
                             <field name="session_id"/>
                             <field name="confirmed_manually"/>
-                            <field name="confirmed_by_id" attrs="{'invisible': [('confirmed_manually', '=', False)]}"/>
+                            <field name="confirmed_by_id" invisible="not confirmed_manually"/>
                         </group>
                     </group>
                     <field name="transaction_ids">
-                        <tree>
+                        <list>
                             <field name="transaction_date"/>
                             <field name="provider_ref"/>
                             <field name="amount"/>
                             <field name="content"/>
                             <field name="state"/>
-                        </tree>
+                        </list>
                     </field>
                 </sheet>
             </form>
         </field>
     </record>
 
-    <record id="pos_vietqr_transaction_view_tree" model="ir.ui.view">
-        <field name="name">pos.vietqr.transaction.tree</field>
+    <record id="pos_vietqr_transaction_view_list" model="ir.ui.view">
+        <field name="name">pos.vietqr.transaction.list</field>
         <field name="model">pos.vietqr.transaction</field>
         <field name="arch" type="xml">
-            <tree create="0" edit="0" decoration-danger="state != 'matched'">
+            <list create="0" edit="0" decoration-danger="state != 'matched'">
                 <field name="create_date" string="Received"/>
                 <field name="transaction_date"/>
                 <field name="provider"/>
@@ -67,7 +67,7 @@
                 <field name="content"/>
                 <field name="request_id"/>
                 <field name="state" widget="badge" decoration-success="state == 'matched'" decoration-danger="state != 'matched'"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -86,13 +86,13 @@
     <record id="action_pos_vietqr_request" model="ir.actions.act_window">
         <field name="name">VietQR payments</field>
         <field name="res_model">pos.vietqr.request</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 
     <record id="action_pos_vietqr_transaction" model="ir.actions.act_window">
         <field name="name">VietQR bank transactions</field>
         <field name="res_model">pos.vietqr.transaction</field>
-        <field name="view_mode">tree</field>
+        <field name="view_mode">list</field>
         <field name="context">{'search_default_to_review': 1}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">No bank transaction to review</p>
