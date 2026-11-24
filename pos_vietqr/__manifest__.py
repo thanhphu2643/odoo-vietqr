@@ -17,5 +17,6 @@
             "pos_vietqr/static/src/**/*",
         ],
     },
+    "images": ["static/description/banner.png"],
     "installable": True,
 }

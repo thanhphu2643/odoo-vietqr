@@ -1,0 +1,53 @@
+<section class="oe_container">
+    <div class="container">
+        <div class="text-center mt-4">
+            <h2 style="color:#b91c1c">POS VietQR</h2>
+            <h4 class="text-muted">Show a VietQR code at the Point of Sale and confirm the payment when the money arrives</h4>
+        </div>
+        <p class="mt-4">
+            Customers in Vietnam pay by scanning a VietQR code with any banking app. This module adds VietQR as a
+            payment method of the Odoo Point of Sale: the cashier sees a QR code with the exact amount and a unique
+            transfer note, and the payment is confirmed as soon as the bank transfer reaches your account.
+        </p>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="container">
+        <h3 class="mt-4">Features</h3>
+        <ul>
+            <li><b>VietQR codes</b> following the NAPAS standard, with the amount and a unique note per payment,
+                readable by all Vietnamese banking apps.</li>
+            <li><b>Automatic confirmation</b> through a bank-transfer webhook (SePay): the transfer is matched to the
+                payment by its note and receiving account, and the POS screen shows it as paid.</li>
+            <li><b>Manual confirmation</b> for cashiers when you do not use the webhook, recorded with the user who confirmed it.</li>
+            <li><b>Safe matching:</b> outgoing transfers are ignored, each transfer is processed once, and transfers
+                with a different amount are flagged for review instead of being accepted.</li>
+            <li>The list of incoming transfers and payment requests in the POS menu, for reconciliation.</li>
+        </ul>
+        <div class="text-center mt-4">
+            <img src="payment_screenshot.png" class="img-fluid" style="border:1px solid #e5e7eb;border-radius:8px" alt="A VietQR payment at the Point of Sale"/>
+            <p class="text-muted mt-2">The QR code for the order, waiting for the transfer.</p>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="container">
+        <h3 class="mt-4">Setup</h3>
+        <ol>
+            <li>Create a payment method with a bank journal and choose <b>VietQR</b> as its terminal.</li>
+            <li>Choose the bank and enter the account number and name that receive the payments.</li>
+            <li>For automatic confirmation, set the webhook URL and key shown on the payment method in your SePay account.</li>
+        </ol>
+        <h3 class="mt-4">Requirements</h3>
+        <ul>
+            <li>Odoo 16, Point of Sale.</li>
+            <li><b>External service:</b> automatic confirmation needs a SePay account to send bank transfers to Odoo.
+                Without it, cashiers confirm payments manually.</li>
+            <li>Like every third-party module with Python code, it runs on Odoo.sh and on-premise, not on Odoo Online.</li>
+        </ul>
+        <h3 class="mt-4">Support</h3>
+        <p>Questions and requests: <a href="mailto:thanhphu2643@gmail.com">thanhphu2643@gmail.com</a></p>
+    </div>
+</section>
