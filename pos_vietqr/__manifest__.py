@@ -1,7 +1,7 @@
 {
     "name": "POS VietQR",
     "summary": "Show a VietQR code in the Point of Sale and confirm the payment automatically when the money arrives",
-    "version": "18.0.1.0.0",
+    "version": "19.0.1.0.0",
     "category": "Sales/Point of Sale",
     "author": "Nguyen Thanh Phu",
     "website": "https://github.com/thanhphu2643",

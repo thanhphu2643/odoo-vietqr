@@ -30,7 +30,7 @@ class PosVietqrRequest(models.Model):
     confirmed_by_id = fields.Many2one("res.users", readonly=True)
     transaction_ids = fields.One2many("pos.vietqr.transaction", "request_id", readonly=True)
 
-    _sql_constraints = [("code_unique", "unique(code)", "The VietQR payment code must be unique.")]
+    _code_unique = models.Constraint("unique(code)", "The VietQR payment code must be unique.")
 
     @api.model
     def create_request(self, payment_method_id, amount, order_ref=None, session_id=None):

@@ -1,16 +1,16 @@
 import { _t } from "@web/core/l10n/translation";
 import { AlertDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
-import { PaymentInterface } from "@point_of_sale/app/payment/payment_interface";
-import { register_payment_method } from "@point_of_sale/app/store/pos_store";
-import { makeAwaitable } from "@point_of_sale/app/store/make_awaitable_dialog";
+import { PaymentInterface } from "@point_of_sale/app/utils/payment/payment_interface";
+import { register_payment_method } from "@point_of_sale/app/services/pos_store";
+import { makeAwaitable } from "@point_of_sale/app/utils/make_awaitable_dialog";
 import { VietQRDialog } from "./vietqr_dialog";
 
 // The QR code is shown in a dialog that waits for the bank notification (or the cashier's
 // confirmation). The payment line is done when the dialog says the money arrived.
 export class PaymentVietQR extends PaymentInterface {
-    async send_payment_request(uuid) {
-        await super.send_payment_request(...arguments);
-        const order = this.pos.get_order();
+    async sendPaymentRequest(uuid) {
+        await super.sendPaymentRequest(...arguments);
+        const order = this.pos.getOrder();
         const line = order.payment_ids.find((paymentLine) => paymentLine.uuid === uuid);
         let request;
         try {
@@ -34,12 +34,12 @@ export class PaymentVietQR extends PaymentInterface {
             await this._cancel(request.id);
             return false;
         }
-        line.transaction_id = request.code;
+        line.update({ transaction_id: request.code });
         return true;
     }
 
-    async send_payment_cancel(order, uuid) {
-        await super.send_payment_cancel(...arguments);
+    async sendPaymentCancel(order, uuid) {
+        await super.sendPaymentCancel(...arguments);
         if (this.request) {
             await this._cancel(this.request.id);
         }

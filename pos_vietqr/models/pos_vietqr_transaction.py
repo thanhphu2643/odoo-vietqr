@@ -33,9 +33,8 @@ class PosVietqrTransaction(models.Model):
     )
     raw = fields.Text("Raw notification", readonly=True)
 
-    _sql_constraints = [
-        ("provider_ref_unique", "unique(provider, provider_ref)", "This bank transaction was already received."),
-    ]
+    # The bank may notify the same transfer twice: it is recorded once.
+    _provider_ref_unique = models.Constraint("unique(provider, provider_ref)", "This bank transaction was already received.")
 
     def _process_sepay(self, data):
         """Record one SePay notification and settle the payment request it refers to.
