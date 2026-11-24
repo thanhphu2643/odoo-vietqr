@@ -1,6 +1,6 @@
 # POS VietQR for Odoo
 
-Odoo 16 Point of Sale module that shows a VietQR code for the order total and marks the
+Odoo 18 Point of Sale module that shows a VietQR code for the order total and marks the
 payment as paid by itself when the money reaches your bank account.
 
 ```
